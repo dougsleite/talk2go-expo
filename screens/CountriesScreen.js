@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ListView, View } from 'react-native';
 import { List, ListItem, SearchBar } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { HEARD_STYLE, HEADER_TITLE_STYLE } from '../styles/commons';
+import { HEADER_STYLE, HEADER_TITLE_STYLE } from '../styles/commons';
 import { Spinner } from '../components';
 import * as actions from '../actions';
 import { changeHomeCountry } from '../actions';
@@ -15,7 +15,7 @@ class CountriesScreen extends Component {
         const { navigate } = props.navigation;
         return {
             headerTitle: 'Talk2Go',
-            headerStyle: HEARD_STYLE,
+            headerStyle: HEADER_STYLE,
             headerTitleStyle: HEADER_TITLE_STYLE
         };
     };

@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { ListView, View, Text} from 'react-native';
-import { List, ListItem } from 'react-native-elements';
+import { List, ListItem, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { HEARD_STYLE, HEADER_TITLE_STYLE } from '../styles/commons';
+import { HEADER_STYLE, HEADER_TITLE_STYLE } from '../styles/commons';
 import { TabNavigator } from 'react-navigation';
 import TranslationTabScreen from './TranslationTabScreen';
 
@@ -13,8 +13,9 @@ class TranslationScreen extends Component {
         const { state } = navigation;
         return {
             headerTitle: state.params.country.name,
-            headerStyle: HEARD_STYLE,
-            headerTitleStyle: HEADER_TITLE_STYLE
+            headerStyle: HEADER_STYLE,
+            headerTitleStyle: HEADER_TITLE_STYLE,
+            headerBackTitleStyle: HEADER_TITLE_STYLE
         };
     };
 
