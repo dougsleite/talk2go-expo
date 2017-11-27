@@ -1,7 +1,9 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
+import expo from 'expo';
 import { View, Text, ListView } from 'react-native';
 import { Card, List, ListItem } from 'react-native-elements';
+import sounds from '../assets/sounds';
 
 class TranslationTabScreen extends Component {
 
@@ -13,40 +15,58 @@ class TranslationTabScreen extends Component {
         this.createDataSource(nextProps);
     }
 
-    createDataSource({ toTranslationText }) {
-        const ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 !== r2
-        });
+    createDataSource(props) {
+
+        const { 
+            fromCountryName,
+            fromCountryLang,
+            fromTranslationText,
+            toCountryName,
+            toCountryLang,
+            toTranslationText,
+            textKey
+         } = props;
+
+        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         
         const array = _.map(toTranslationText, (value, key) => {
             return { 
-                from: this.getFrom(key),
-                to: value
+                fromText: this.getFromText(fromTranslationText, key),
+                fromSound: `${fromCountryName}.${fromCountryLang}.${textKey}.${key}`,
+                toText: value,
+                toSound: `${toCountryName}.${toCountryLang}.${textKey}.${key}`
             };
         });
         this.dataSource = ds.cloneWithRows(array);
     }    
 
-    getFrom(id) {
-        const { fromTranslationText } = this.props;
-        return _.find(fromTranslationText, (value, key) => key === id);  
+    getFromText(fromTranslationText, toTextKey) {
+        return _.find(fromTranslationText, (value, key) => key === toTextKey);  
     }
     
+    playSound = async (soundToPlay) => {
+        await Expo.Audio.Sound.create(
+            _.get(sounds, soundToPlay),
+            { shouldPlay: true }
+        );
+    }
+
     renderRow = (translationRow) => {
-        const{ fromCountry, toCountry } = this.props;
         return(
             <Card>
                 <ListItem 
                     roundAvatar
-                    hideChevron
-                    title={translationRow.from}
+                    title={translationRow.fromText}
                     avatar={{uri: this.props.fromIconUri}}
+                    rightIcon={{name: 'hearing'}}
+                    onPressRightIcon={() => this.playSound(translationRow.fromSound)}
                 />
                 <ListItem 
                     roundAvatar
-                    hideChevron
-                    title={translationRow.to}
+                    title={translationRow.toText}
                     avatar={{uri: this.props.toIconUri}}
+                    rightIcon={{name: 'hearing'}}
+                    onPressRightIcon={() => this.playSound(translationRow.toSound)}
                 />
             </Card>
         );

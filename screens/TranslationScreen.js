@@ -40,18 +40,28 @@ class TranslationScreen extends Component {
         // FIXEME: Need to be the onde defined by the user
         const homeCountryLang = homeCountry.languages[0].name;
 
+        // FIXME: Need to come from drawer key
+        const textKey = 'greetings';
+
         return (
             <TranslationTabScreen 
-                toIconUri={country.icon_url}
+                fromCountryName={homeCountry.name}
+                fromCountryLang={homeCountryLang}
                 fromIconUri={homeCountry.icon_url}
-                fromTranslationText={this.getTranslationText(homeCountry, homeCountryLang)}
-                toTranslationText={this.getTranslationText(country, countryLang)}
+                fromTranslationText={this.getTranslationText(homeCountry, homeCountryLang, textKey)}
+
+                toCountryName={country.name}
+                toCountryLang={countryLang}
+                toIconUri={country.icon_url}
+                toTranslationText={this.getTranslationText(country, countryLang, textKey)}
+
+                textKey={textKey}
             />
         );
     }
 
-    getTranslationText = (c, l) => {
-        return _.at(c.text.greetings, [_.lowerCase(l)])[0];
+    getTranslationText = (country, lang, key) => {
+        return _.at(country.text[key], [_.lowerCase(lang)])[0];
     }
 
     render() {
