@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { ListView, View } from 'react-native';
 import { List, ListItem, SearchBar } from 'react-native-elements';
@@ -7,7 +8,7 @@ import { Spinner } from '../components';
 import * as actions from '../actions';
 import { changeHomeCountry } from '../actions';
 
-const DEFAULT_COUNTRY_UUID = '14ba8f11-c0f9-49cf-a45a-a84e20eb7e6f';
+const DEFAULT_COUNTRY_UUID = '07e83cc4-2235-495e-a56d-6f51b6b094ba';
 
 class CountriesScreen extends Component {
 
@@ -109,7 +110,7 @@ class CountriesScreen extends Component {
 
 const mapStateToProps = ({ countries: { data, filterBy, isLoading }, homeCountry }) => {
     const filteredData = filterBy ? data.filter(c => c.name.toUpperCase().startsWith(filterBy)) : data;
-    return { countries: filteredData, isLoading, homeCountry };
+    return { countries: _.sortBy(filteredData, ['name']), isLoading, homeCountry };
 }
 
 const isEmpty = (obj) => {
