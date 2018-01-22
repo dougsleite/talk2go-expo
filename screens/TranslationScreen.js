@@ -5,7 +5,9 @@ import { List, ListItem, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { HEADER_STYLE, HEADER_TITLE_STYLE } from '../styles/commons';
 import { TabNavigator } from 'react-navigation';
+import expo from 'expo';
 import TranslationTabScreen from './TranslationTabScreen';
+import iconFlags from '../assets/icons/flags';
 
 class TranslationScreen extends Component {
 
@@ -43,16 +45,19 @@ class TranslationScreen extends Component {
         // FIXME: Need to come from drawer key
         const textKey = 'greetings';
 
+        const homeCountryImgUri = Expo.Asset.fromModule(_.get(iconFlags, homeCountry.name)).uri;
+        const countryImgUri = Expo.Asset.fromModule(_.get(iconFlags, country.name)).uri;
+
         return (
             <TranslationTabScreen 
                 fromCountryName={homeCountry.name}
                 fromCountryLang={homeCountryLang}
-                fromIconUri={homeCountry.icon_url}
+                fromIconUri={homeCountryImgUri}
                 fromTranslationText={this.getTranslationText(homeCountry, homeCountryLang, textKey)}
 
                 toCountryName={country.name}
                 toCountryLang={countryLang}
-                toIconUri={country.icon_url}
+                toIconUri={countryImgUri}
                 toTranslationText={this.getTranslationText(country, countryLang, textKey)}
 
                 textKey={textKey}

@@ -3,10 +3,12 @@ import React, { Component } from 'react';
 import { ListView, View } from 'react-native';
 import { List, ListItem, SearchBar } from 'react-native-elements';
 import { connect } from 'react-redux';
+import expo from 'expo';
 import { HEADER_STYLE, HEADER_TITLE_STYLE } from '../styles/commons';
 import { Spinner } from '../components';
 import * as actions from '../actions';
 import { changeHomeCountry } from '../actions';
+import iconFlags from '../assets/icons/flags';
 
 const DEFAULT_COUNTRY_UUID = '07e83cc4-2235-495e-a56d-6f51b6b094ba';
 
@@ -57,13 +59,15 @@ class CountriesScreen extends Component {
 
     renderRow = (country, sectionID) => {
         const selected = country.uuid === this.props.homeCountry.uuid;
+        const countryImgUri = Expo.Asset.fromModule(_.get(iconFlags, country.name)).uri;
         return (
             <ListItem
                 roundAvatar
                 key={sectionID}
                 title={country.name}
                 subtitle={country.native_name}
-                avatar={{uri: country.icon_url}}
+                //avatar={{uri: country.icon_url}}
+                avatar={{uri: countryImgUri}}
                 containerStyle={[selected && { backgroundColor: '#b4e1ff' }]}
 
                 // Press Props
