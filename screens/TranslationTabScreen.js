@@ -30,11 +30,18 @@ class TranslationTabScreen extends Component {
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         
         const array = _.map(toTranslationText, (value, key) => {
+
+            const fromSoundSpecific = `${fromCountryLang}-${fromCountryName}.${textKey}.${key}`;
+            const fromSoundDefault = `${fromCountryLang}.${textKey}.${key}`;
+
+            const toSoundSpecific = `${toCountryLang}-${toCountryName}.${textKey}.${key}`;
+            const toSoundDefault = `${toCountryLang}.${textKey}.${key}`;
+
             return { 
                 fromText: this.getFromText(fromTranslationText, key),
-                fromSound: `${fromCountryName}.${fromCountryLang}.${textKey}.${key}`,
+                fromSound: _.get(sounds, fromSoundSpecific, _.get(sounds, fromSoundDefault)),
                 toText: value,
-                toSound: `${toCountryName}.${toCountryLang}.${textKey}.${key}`
+                toSound:  _.get(sounds, toSoundSpecific, _.get(sounds, toSoundDefault))
             };
         });
         this.dataSource = ds.cloneWithRows(array);
@@ -45,10 +52,7 @@ class TranslationTabScreen extends Component {
     }
     
     playSound = async (soundToPlay) => {
-        await Expo.Audio.Sound.create(
-            _.get(sounds, soundToPlay),
-            { shouldPlay: true }
-        );
+        await Expo.Audio.Sound.create(soundToPlay, { shouldPlay: true });
     }
 
     renderRow = (translationRow) => {
