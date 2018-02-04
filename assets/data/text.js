@@ -77,6 +77,22 @@ export default {
         "g6": "Zdravo"
       }
     },
+    "Bulgarian": {
+      "greetings": {
+        "g1": "Здрасти",
+        "g2": "благодаря",
+        "g3": "съжалявам",
+        "g4": "Моля те",
+        "g5": "Извинете ме",
+        "g6": "Чао",
+        "_g1": "Zdrasti",
+        "_g2": "blagodarya",
+        "_g3": "sŭzhalyavam",
+        "_g4": "Molya te",
+        "_g5": "Izvinete me",
+        "_g6": "Chao"        
+      }
+    },   
     "Catalan": {
       "greetings": {
         "g1": "Hola",

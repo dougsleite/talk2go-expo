@@ -72,6 +72,7 @@ class TranslationTabScreen extends Component {
                     subtitle={translationRow.fromSubText}
                     avatar={{uri: this.props.fromIconUri}}
                     rightIcon={{name: 'hearing'}}
+                    hideChevron={translationRow.fromSound == null}
                     onPressRightIcon={() => this.playSound(translationRow.fromSound)}
                 />
                 <ListItem 
@@ -80,6 +81,7 @@ class TranslationTabScreen extends Component {
                     subtitle={translationRow.toSubText}
                     avatar={{uri: this.props.toIconUri}}
                     rightIcon={{name: 'hearing'}}
+                    hideChevron={translationRow.toSound == null}
                     onPressRightIcon={() => this.playSound(translationRow.toSound)}
                 />
             </Card>
