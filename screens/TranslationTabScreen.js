@@ -29,7 +29,13 @@ class TranslationTabScreen extends Component {
 
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         
-        const array = _.map(toTranslationText, (value, key) => {
+        const filteredFrom = this.filterOutSubText(fromTranslationText);
+        const filteredTo = this.filterOutSubText(toTranslationText);
+        const mergedTexts = _.mergeWith(filteredFrom, filteredTo, (v1, v2) => {
+            return { from: v1, to: v2 };
+        });
+
+        const data = _.map(mergedTexts, (value, key) => {
 
             const fromSoundSpecific = `${fromCountryLang}-${fromCountryName}.${textKey}.${key}`;
             const fromSoundDefault = `${fromCountryLang}.${textKey}.${key}`;
@@ -38,19 +44,21 @@ class TranslationTabScreen extends Component {
             const toSoundDefault = `${toCountryLang}.${textKey}.${key}`;
 
             return { 
-                fromText: this.getFromText(fromTranslationText, key),
+                fromText: value.from,
+                fromSubText: fromTranslationText[`_${key}`],
                 fromSound: _.get(sounds, fromSoundSpecific, _.get(sounds, fromSoundDefault)),
-                toText: value,
+                toText: value.to,
+                toSubText: toTranslationText[`_${key}`],
                 toSound:  _.get(sounds, toSoundSpecific, _.get(sounds, toSoundDefault))
             };
         });
-        this.dataSource = ds.cloneWithRows(array);
+        this.dataSource = ds.cloneWithRows(data);
     }    
-
-    getFromText(fromTranslationText, toTextKey) {
-        return _.find(fromTranslationText, (value, key) => key === toTextKey);  
-    }
     
+    filterOutSubText = (text) => {
+        return _.pickBy(text, (value, key) => !key.startsWith('_'));
+    }
+
     playSound = async (soundToPlay) => {
         await Expo.Audio.Sound.create(soundToPlay, { shouldPlay: true });
     }
@@ -61,6 +69,7 @@ class TranslationTabScreen extends Component {
                 <ListItem 
                     roundAvatar
                     title={translationRow.fromText}
+                    subtitle={translationRow.fromSubText}
                     avatar={{uri: this.props.fromIconUri}}
                     rightIcon={{name: 'hearing'}}
                     onPressRightIcon={() => this.playSound(translationRow.fromSound)}
@@ -68,6 +77,7 @@ class TranslationTabScreen extends Component {
                 <ListItem 
                     roundAvatar
                     title={translationRow.toText}
+                    subtitle={translationRow.toSubText}
                     avatar={{uri: this.props.toIconUri}}
                     rightIcon={{name: 'hearing'}}
                     onPressRightIcon={() => this.playSound(translationRow.toSound)}

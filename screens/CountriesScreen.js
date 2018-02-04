@@ -57,16 +57,15 @@ class CountriesScreen extends Component {
         this.props.changeHomeCountry(country);
     };
 
-    renderRow = (country, sectionID) => {
+    renderRow = (country) => {
         const selected = country.uuid === this.props.homeCountry.uuid;
         const countryImgUri = Expo.Asset.fromModule(_.get(iconFlags, country.name)).uri;
         return (
             <ListItem
                 roundAvatar
-                key={sectionID}
+                key={country.name}
                 title={country.name}
                 subtitle={country.native_name}
-                //avatar={{uri: country.icon_url}}
                 avatar={{uri: countryImgUri}}
                 containerStyle={[selected && { backgroundColor: '#b4e1ff' }]}
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { NetInfo } from 'react-native';
-import country_data from '../assets/country';
+import country_data from '../assets/data/country';
 
 import {
     COUNTRIES_FETCH_SUCCESS,
@@ -16,10 +16,6 @@ const FETCH_JOB_URL = 'https://us-central1-talk2go-acfdf.cloudfunctions.net/fetc
 // };
 
 export const fetchCountries = () => {
-    NetInfo.isConnected.fetch().then(isConnected => {
-        console.log('First, is ' + (isConnected ? 'online' : 'offline'));
-      });
-
     return { type: COUNTRIES_FETCH_SUCCESS, payload: country_data.countries };
 };
 

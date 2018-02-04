@@ -8,6 +8,7 @@ import { TabNavigator } from 'react-navigation';
 import expo from 'expo';
 import TranslationTabScreen from './TranslationTabScreen';
 import iconFlags from '../assets/icons/flags';
+import text from '../assets/data/text';
 
 class TranslationScreen extends Component {
 
@@ -53,20 +54,20 @@ class TranslationScreen extends Component {
                 fromCountryName={homeCountry.name}
                 fromCountryLang={homeCountryLang}
                 fromIconUri={homeCountryImgUri}
-                fromTranslationText={this.getTranslationText(homeCountry, homeCountryLang, textKey)}
+                fromTranslationText={this.getTranslationText(homeCountryLang, textKey)}
 
                 toCountryName={country.name}
                 toCountryLang={countryLang}
                 toIconUri={countryImgUri}
-                toTranslationText={this.getTranslationText(country, countryLang, textKey)}
+                toTranslationText={this.getTranslationText(countryLang, textKey)}
 
                 textKey={textKey}
             />
         );
     }
 
-    getTranslationText = (country, lang, key) => {
-        return _.at(country.text[key], [_.lowerCase(lang)])[0];
+    getTranslationText = (lang, key) => {
+        return _.get(text, lang)[key];
     }
 
     render() {

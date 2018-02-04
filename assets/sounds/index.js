@@ -79,16 +79,6 @@ export default {
       "g6": require('./greetings/cmn-Hant-TW-g6.mp3')
     }
   },
-  "Czech": {
-    "greetings": {
-      "g1": require('./greetings/cs-CZ-g1.mp3'),
-      "g2": require('./greetings/cs-CZ-g2.mp3'),
-      "g3": require('./greetings/cs-CZ-g3.mp3'),
-      "g4": require('./greetings/cs-CZ-g4.mp3'),
-      "g5": require('./greetings/cs-CZ-g5.mp3'),
-      "g6": require('./greetings/cs-CZ-g6.mp3')
-    }
-  },
   "Chinese-Hong Kong": {
     "greetings": {
       "g1": require('./greetings/yue-Hant-HK-g1.mp3'),
@@ -97,6 +87,16 @@ export default {
       "g4": require('./greetings/yue-Hant-HK-g4.mp3'),
       "g5": require('./greetings/yue-Hant-HK-g5.mp3'),
       "g6": require('./greetings/yue-Hant-HK-g6.mp3')
+    }
+  },  
+  "Czech": {
+    "greetings": {
+      "g1": require('./greetings/cs-CZ-g1.mp3'),
+      "g2": require('./greetings/cs-CZ-g2.mp3'),
+      "g3": require('./greetings/cs-CZ-g3.mp3'),
+      "g4": require('./greetings/cs-CZ-g4.mp3'),
+      "g5": require('./greetings/cs-CZ-g5.mp3'),
+      "g6": require('./greetings/cs-CZ-g6.mp3')
     }
   },
   "Croatian": {
@@ -219,6 +219,26 @@ export default {
       "g6": require('./greetings/hu-HU-g6.mp3')
     }
   },
+  "Icelandic": {
+    "greetings": {
+      "g1": require('./greetings/is-IS-g1.mp3'),
+      "g2": require('./greetings/is-IS-g2.mp3'),
+      "g3": require('./greetings/is-IS-g3.mp3'),
+      "g4": require('./greetings/is-IS-g4.mp3'),
+      "g5": require('./greetings/is-IS-g5.mp3'),
+      "g6": require('./greetings/is-IS-g6.mp3')
+    }
+  },
+  "Indonesian": {
+    "greetings": {
+      "g1": require('./greetings/id-ID-g1.mp3'),
+      "g2": require('./greetings/id-ID-g2.mp3'),
+      "g3": require('./greetings/id-ID-g3.mp3'),
+      "g4": require('./greetings/id-ID-g4.mp3'),
+      "g5": require('./greetings/id-ID-g5.mp3'),
+      "g6": require('./greetings/id-ID-g6.mp3')
+    }
+  },    
   "Italian": {
     "greetings": {
       "g1": require('./greetings/it-IT-g1.mp3'),
@@ -229,6 +249,76 @@ export default {
       "g6": require('./greetings/it-IT-g6.mp3')
     }
   },
+  "Japonese": {
+    "greetings": {
+      "g1": require('./greetings/ja-JP-g1.mp3'),
+      "g2": require('./greetings/ja-JP-g2.mp3'),
+      "g3": require('./greetings/ja-JP-g3.mp3'),
+      "g4": require('./greetings/ja-JP-g4.mp3'),
+      "g5": require('./greetings/ja-JP-g5.mp3'),
+      "g6": require('./greetings/ja-JP-g6.mp3')
+    }
+  },   
+  "Korean": {
+    "greetings": {
+      "g1": require('./greetings/ko-KR-g1.mp3'),
+      "g2": require('./greetings/ko-KR-g2.mp3'),
+      "g3": require('./greetings/ko-KR-g3.mp3'),
+      "g4": require('./greetings/ko-KR-g4.mp3'),
+      "g5": require('./greetings/ko-KR-g5.mp3'),
+      "g6": require('./greetings/ko-KR-g6.mp3')
+    }
+  },  
+  "Latvian": {
+    "greetings": {
+      "g1": require('./greetings/lv-g1.mp3'),
+      "g2": require('./greetings/lv-g2.mp3'),
+      "g3": require('./greetings/lv-g3.mp3'),
+      "g4": require('./greetings/lv-g4.mp3'),
+      "g5": require('./greetings/lv-g5.mp3'),
+      "g6": require('./greetings/lv-g6.mp3')
+    }
+  },    
+  "Macedonian": {
+    "greetings": {
+      "g1": require('./greetings/mk-g1.mp3'),
+      "g2": require('./greetings/mk-g2.mp3'),
+      "g3": require('./greetings/mk-g3.mp3'),
+      "g4": require('./greetings/mk-g4.mp3'),
+      "g5": require('./greetings/mk-g5.mp3'),
+      "g6": require('./greetings/mk-g6.mp3')
+    }
+  },  
+  "Nepali": {
+    "greetings": {
+      "g1": require('./greetings/ne-g1.mp3'),
+      "g2": require('./greetings/ne-g2.mp3'),
+      "g3": require('./greetings/ne-g3.mp3'),
+      "g4": require('./greetings/ne-g4.mp3'),
+      "g5": require('./greetings/ne-g5.mp3'),
+      "g6": require('./greetings/ne-g6.mp3')
+    }
+  }, 
+  "Norwegian": {
+    "greetings": {
+      "g1": require('./greetings/nb-NO-g1.mp3'),
+      "g2": require('./greetings/nb-NO-g2.mp3'),
+      "g3": require('./greetings/nb-NO-g3.mp3'),
+      "g4": require('./greetings/nb-NO-g4.mp3'),
+      "g5": require('./greetings/nb-NO-g5.mp3'),
+      "g6": require('./greetings/nb-NO-g6.mp3')
+    }
+  },           
+  "Polish": {
+    "greetings": {
+      "g1": require('./greetings/pl-PL-g1.mp3'),
+      "g2": require('./greetings/pl-PL-g2.mp3'),
+      "g3": require('./greetings/pl-PL-g3.mp3'),
+      "g4": require('./greetings/pl-PL-g4.mp3'),
+      "g5": require('./greetings/pl-PL-g5.mp3'),
+      "g6": require('./greetings/pl-PL-g6.mp3')
+    }
+  },  
   "Portuguese": {
     "greetings": {
       "g1": require('./greetings/pt-BR-g1.mp3'),
@@ -238,7 +328,97 @@ export default {
       "g5": require('./greetings/pt-BR-g5.mp3'),
       "g6": require('./greetings/pt-BR-g6.mp3')
     }
-  },
+  }, 
+  "Romanian": {
+    "greetings": {
+      "g1": require('./greetings/ro-RO-g1.mp3'),
+      "g2": require('./greetings/ro-RO-g2.mp3'),
+      "g3": require('./greetings/ro-RO-g3.mp3'),
+      "g4": require('./greetings/ro-RO-g4.mp3'),
+      "g5": require('./greetings/ro-RO-g5.mp3'),
+      "g6": require('./greetings/ro-RO-g6.mp3')
+    }
+  },   
+  "Russian": {
+    "greetings": {
+      "g1": require('./greetings/ru-RU-g1.mp3'),
+      "g2": require('./greetings/ru-RU-g2.mp3'),
+      "g3": require('./greetings/ru-RU-g3.mp3'),
+      "g4": require('./greetings/ru-RU-g4.mp3'),
+      "g5": require('./greetings/ru-RU-g5.mp3'),
+      "g6": require('./greetings/ru-RU-g6.mp3')
+    }
+  },    
+  "Serbian": {
+    "greetings": {
+      "g1": require('./greetings/sr-RS-g1.mp3'),
+      "g2": require('./greetings/sr-RS-g2.mp3'),
+      "g3": require('./greetings/sr-RS-g3.mp3'),
+      "g4": require('./greetings/sr-RS-g4.mp3'),
+      "g5": require('./greetings/sr-RS-g5.mp3'),
+      "g6": require('./greetings/sr-RS-g6.mp3')
+    }
+  },  
+  "Slovak": {
+    "greetings": {
+      "g1": require('./greetings/sk-SK-g1.mp3'),
+      "g2": require('./greetings/sk-SK-g2.mp3'),
+      "g3": require('./greetings/sk-SK-g3.mp3'),
+      "g4": require('./greetings/sk-SK-g4.mp3'),
+      "g5": require('./greetings/sk-SK-g5.mp3'),
+      "g6": require('./greetings/sk-SK-g6.mp3')
+    }
+  },       
+  "Spanish": {
+    "greetings": {
+      "g1": require('./greetings/es-ES-g1.mp3'),
+      "g2": require('./greetings/es-ES-g2.mp3'),
+      "g3": require('./greetings/es-ES-g3.mp3'),
+      "g4": require('./greetings/es-ES-g4.mp3'),
+      "g5": require('./greetings/es-ES-g5.mp3'),
+      "g6": require('./greetings/es-ES-g6.mp3')
+    }
+  }, 
+  "Spanish-Mexico": {
+    "greetings": {
+      "g1": require('./greetings/es-MX-g1.mp3'),
+      "g2": require('./greetings/es-MX-g2.mp3'),
+      "g3": require('./greetings/es-MX-g3.mp3'),
+      "g4": require('./greetings/es-MX-g4.mp3'),
+      "g5": require('./greetings/es-MX-g5.mp3'),
+      "g6": require('./greetings/es-MX-g6.mp3')
+    }
+  },  
+  "Swedish": {
+    "greetings": {
+      "g1": require('./greetings/sv-SE-g1.mp3'),
+      "g2": require('./greetings/sv-SE-g2.mp3'),
+      "g3": require('./greetings/sv-SE-g3.mp3'),
+      "g4": require('./greetings/sv-SE-g4.mp3'),
+      "g5": require('./greetings/sv-SE-g5.mp3'),
+      "g6": require('./greetings/sv-SE-g6.mp3')
+    }
+  }, 
+  "Thai": {
+    "greetings": {
+      "g1": require('./greetings/th-TH-g1.mp3'),
+      "g2": require('./greetings/th-TH-g2.mp3'),
+      "g3": require('./greetings/th-TH-g3.mp3'),
+      "g4": require('./greetings/th-TH-g4.mp3'),
+      "g5": require('./greetings/th-TH-g5.mp3'),
+      "g6": require('./greetings/th-TH-g6.mp3')
+    }
+  }, 
+  "Turkish": {
+    "greetings": {
+      "g1": require('./greetings/tr-TR-g1.mp3'),
+      "g2": require('./greetings/tr-TR-g2.mp3'),
+      "g3": require('./greetings/tr-TR-g3.mp3'),
+      "g4": require('./greetings/tr-TR-g4.mp3'),
+      "g5": require('./greetings/tr-TR-g5.mp3'),
+      "g6": require('./greetings/tr-TR-g6.mp3')
+    }
+  },  
   "Ukrainian": {
     "greetings": {
       "g1": require('./greetings/uk-UA-g1.mp3'),
@@ -248,5 +428,15 @@ export default {
       "g5": require('./greetings/uk-UA-g5.mp3'),
       "g6": require('./greetings/uk-UA-g6.mp3')
     }
-  }
+  },
+  "Vietnamese": {
+    "greetings": {
+      "g1": require('./greetings/vi-VN-g1.mp3'),
+      "g2": require('./greetings/vi-VN-g2.mp3'),
+      "g3": require('./greetings/vi-VN-g3.mp3'),
+      "g4": require('./greetings/vi-VN-g4.mp3'),
+      "g5": require('./greetings/vi-VN-g5.mp3'),
+      "g6": require('./greetings/vi-VN-g6.mp3')
+    }
+  },    
 }
