@@ -10,7 +10,7 @@ import * as actions from '../actions';
 import { changeHomeCountry } from '../actions';
 import iconFlags from '../assets/icons/flags';
 
-const DEFAULT_COUNTRY_UUID = '07e83cc4-2235-495e-a56d-6f51b6b094ba';
+const DEFAULT_COUNTRY_UUID = '5870d25e-452e-4ba2-9d04-a8f37eca257f';
 
 class CountriesScreen extends Component {
 
