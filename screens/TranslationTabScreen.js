@@ -14,7 +14,6 @@ class TranslationTabScreen extends Component {
     componentWillReceiveProps(nextProps) {
         this.createDataSource(nextProps);
     }
-
     createDataSource(props) {
 
         const { 

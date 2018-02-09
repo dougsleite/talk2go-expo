@@ -249,7 +249,7 @@ export default {
       "g6": require('./greetings/it-IT-g6.mp3')
     }
   },
-  "Japonese": {
+  "Japanese": {
     "greetings": {
       "g1": require('./greetings/ja-JP-g1.mp3'),
       "g2": require('./greetings/ja-JP-g2.mp3'),

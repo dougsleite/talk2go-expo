@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 import { Font } from 'expo';
@@ -8,13 +8,21 @@ import { Spinner } from './components';
 import store from './store';
 import CountriesScreen from './screens/CountriesScreen';
 import TranslationScreen from './screens/TranslationScreen';
+import WelcomeScreen from './screens/WelcomeScreen';
 
 export default class App extends Component {
 
-    // TODO: Consider removing this
     state = {
+        // TODO: Consider removing this
         fontLoaded: false,
+        welcomeScreenExecuted: false
     };
+
+    async componentWillMount() {
+        //await AsyncStorage.clear();
+        let welcomeScreenExecuted = await AsyncStorage.getItem('welcomeScreenExecuted');
+        this.setState({ welcomeScreenExecuted: welcomeScreenExecuted == null ? false : JSON.parse(welcomeScreenExecuted) });
+    }
 
     // TODO: Consider removing this
     async componentDidMount() {
@@ -25,18 +33,26 @@ export default class App extends Component {
     }
 
     render() {
-        const MainNavigator = StackNavigator({
-            countries: {
-              screen: CountriesScreen,
-            },
-            translation: {
-              screen: TranslationScreen,
-            },
+        const CountryFlow = StackNavigator({
+            countries: { screen: CountriesScreen },
+            translation: { screen: TranslationScreen }
         });
 
-        // TODO: Consider removing this
+        const MainNavigator = StackNavigator({
+            welcome: { screen: WelcomeScreen },
+            main: { screen: CountryFlow }
+        }, mainNavigatorProps);
+
         if(!this.state.fontLoaded) {
             return <Spinner size="large" />;
+        }
+
+        if(this.state.welcomeScreenExecuted) {
+            return (
+                <Provider store={store}>
+                    <CountryFlow />
+                </Provider>
+            )
         }
         return (
             <Provider store={store}>
@@ -45,6 +61,13 @@ export default class App extends Component {
         );
     }
 }
+
+const mainNavigatorProps = {
+    headerMode: 'none',
+    navigationOptions: {
+        gesturesEnabled: false
+    }
+};
 
 const styles = StyleSheet.create({
     container: {

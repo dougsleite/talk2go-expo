@@ -357,12 +357,12 @@ export default {
     },      
     "Polish": {
       "greetings": {
-        "g1": "cześć",
-        "g2": "Podziękować",
+        "g1": "Cześć",
+        "g2": "Dziękuje",
         "g3": "Przepraszam",
         "g4": "Proszę",
         "g5": "Przepraszam",
-        "g6": "PA"
+        "g6": "Pa"
       }
     },     
     "Portuguese": {

@@ -511,7 +511,7 @@ export default {
         "languages": [
           {
             "nativeName": "ελληνικά",
-            "name": "Greek (modern)"
+            "name": "Greek"
           },
           {
             "nativeName": "Türkçe",

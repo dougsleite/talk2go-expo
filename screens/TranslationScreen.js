@@ -18,7 +18,8 @@ class TranslationScreen extends Component {
             headerTitle: state.params.country.name,
             headerStyle: HEADER_STYLE,
             headerTitleStyle: HEADER_TITLE_STYLE,
-            headerBackTitleStyle: HEADER_TITLE_STYLE
+            headerBackTitleStyle: HEADER_TITLE_STYLE,
+            headerBackTitle: null
         };
     };
 
@@ -73,7 +74,15 @@ class TranslationScreen extends Component {
     render() {
         const Tabs = TabNavigator(this.createLangTabsForCountry(), {
             animationEnabled: true,
-            lazy: false,
+            tabBarPosition: 'bottom',
+            lazy: true,
+            tabBarOptions: {
+                activeTintColor: "#1f94d0",
+                labelStyle: {
+                  fontSize: 15,
+                  fontWeight: "bold"
+                },
+            }
         });
         return(
             <View style={{ flex: 1 }}>

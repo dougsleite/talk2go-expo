@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { ListView, View } from 'react-native';
+import { ListView, View, Text} from 'react-native';
 import { List, ListItem, SearchBar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import expo from 'expo';
@@ -19,7 +19,8 @@ class CountriesScreen extends Component {
         return {
             headerTitle: 'Talk2Go',
             headerStyle: HEADER_STYLE,
-            headerTitleStyle: HEADER_TITLE_STYLE
+            headerTitleStyle: HEADER_TITLE_STYLE,
+            headerLeft: null
         };
     };
 
@@ -93,7 +94,7 @@ class CountriesScreen extends Component {
             return <Spinner size="large" />;
         }
 		return(
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1 }}>          
                 <SearchBar
                     clearIcon
                     lightTheme
