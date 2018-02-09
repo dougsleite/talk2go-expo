@@ -13,13 +13,11 @@ import WelcomeScreen from './screens/WelcomeScreen';
 export default class App extends Component {
 
     state = {
-        // TODO: Consider removing this
         fontLoaded: false,
         welcomeScreenExecuted: false
     };
 
     async componentWillMount() {
-        //await AsyncStorage.clear();
         let welcomeScreenExecuted = await AsyncStorage.getItem('welcomeScreenExecuted');
         this.setState({ welcomeScreenExecuted: welcomeScreenExecuted == null ? false : JSON.parse(welcomeScreenExecuted) });
     }
