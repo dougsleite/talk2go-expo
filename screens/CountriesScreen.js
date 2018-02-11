@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { ListView, View, Text} from 'react-native';
-import { List, ListItem, SearchBar } from 'react-native-elements';
+import { ListView, View, Text, AsyncStorage} from 'react-native';
+import { List, ListItem, SearchBar, Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import expo from 'expo';
 import { HEADER_STYLE, HEADER_TITLE_STYLE } from '../styles/commons';
@@ -15,12 +15,23 @@ const DEFAULT_COUNTRY_UUID = '5870d25e-452e-4ba2-9d04-a8f37eca257f';
 class CountriesScreen extends Component {
 
     static navigationOptions = props => {
-        const { navigate } = props.navigation;
+        const { navigate }  = props.navigation;
+        const params = props.navigation.state.params || {};
         return {
             headerTitle: 'Talk2Go',
             headerStyle: HEADER_STYLE,
             headerTitleStyle: HEADER_TITLE_STYLE,
-            headerLeft: null
+            headerLeft: (
+                <Avatar
+                    small
+                    rounded
+                    source={{uri: params.countryImgUri }}
+                    activeOpacity={0.9}
+                    containerStyle={{paddingLeft: 60}}
+                    overlayContainerStyle={HEADER_STYLE}
+                    avatarStyle={{borderRadius: 16, borderColor:'white', borderWidth: 2}}
+                />
+            ),
         };
     };
 
@@ -31,16 +42,23 @@ class CountriesScreen extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.createDataSource(nextProps);
-        //FIX-ME: CONSIDER REMOVING THIS ONCE THE WELCOME SCREEN IS DEFINED
         this.setDefaultHomeCountry(nextProps);
     }
 
-    setDefaultHomeCountry(nextProps) {
+    setDefaultHomeCountry = async (nextProps) => {
         const { countries, homeCountry, isLoading } = nextProps;
         if (!isLoading && isEmpty(homeCountry)) {
-            const defaultCountry = countries.find(c => c.uuid == DEFAULT_COUNTRY_UUID)
+            let homeCountryUuid = await AsyncStorage.getItem('homeCountryUuid');
+            const uuid = homeCountryUuid == null ? DEFAULT_COUNTRY_UUID : homeCountryUuid;
+            const defaultCountry = countries.find(c => c.uuid == uuid)
             this.props.changeHomeCountry(defaultCountry);
+            this.setHeaderFlag(defaultCountry);
         }
+    }
+
+    setHeaderFlag(country) {
+        const countryImgUri = Expo.Asset.fromModule(_.get(iconFlags, country.name)).uri;
+        this.props.navigation.setParams({ countryImgUri });
     }
 
     createDataSource({ countries }) {
@@ -56,6 +74,7 @@ class CountriesScreen extends Component {
 
     onItemLongPress = (country) => {
         this.props.changeHomeCountry(country);
+        this.setHeaderFlag(country);
     };
 
     renderRow = (country) => {
@@ -73,14 +92,6 @@ class CountriesScreen extends Component {
                 // Press Props
                 onPress={() => this.onItemPress(country)}
                 onLongPress={() => this.onItemLongPress(country)}
-
-                // Switch Props
-                // onSwitch={() => this.onItemLongPress(country)}
-                // switchButton
-                // hideChevron
-                // switchOnTintColor='#1f94d0'
-                // switched={selected}
-                // switchDisabled={selected}
             />
         );
     }

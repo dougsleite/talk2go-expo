@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { NetInfo } from 'react-native';
+import { AsyncStorage } from 'react-native';
 import country_data from '../assets/data/country';
 
 import {
@@ -26,9 +26,10 @@ export const updateCountriesFilter = (text) => {
     };
 };
 
-export const changeHomeCountry = (country) => {
-    return {
+export const changeHomeCountry = (country) => async (dispatch) => {
+    AsyncStorage.setItem('homeCountryUuid', country.uuid);
+    dispatch({
         type: HOME_COUNTRY_CHANGED,
         payload: country
-    };
+    });
 };

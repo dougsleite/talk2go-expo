@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, Dimensions, Orientation } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import Swiper from 'react-native-swiper';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -20,15 +20,12 @@ class Slides extends Component {
     renderLastSlide(index) {
         if (index === this.props.data.length - 1) {
             return (
-                <Button
-                    //title="Got it!"
-                    large
+                <Icon
                     raised
-                    icon={{name: 'thumb-up'}}
-                    buttonStyle={styles.buttonStyle}
-                    onPress={this.props.onComplete}
-                    backgroundColor="#085f89"
-                />
+                    name='thumb-up'
+                    color='#085f89'
+                    size={32}
+                    onPress={this.props.onComplete} />                
             );
         }
     }
