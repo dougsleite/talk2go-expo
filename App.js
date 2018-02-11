@@ -18,6 +18,7 @@ export default class App extends Component {
     };
 
     async componentWillMount() {
+        await AsyncStorage.clear();
         let welcomeScreenExecuted = await AsyncStorage.getItem('welcomeScreenExecuted');
         this.setState({ welcomeScreenExecuted: welcomeScreenExecuted == null ? false : JSON.parse(welcomeScreenExecuted) });
     }

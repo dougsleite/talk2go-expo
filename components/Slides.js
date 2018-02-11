@@ -40,7 +40,7 @@ class Slides extends Component {
                     style={[styles.slideStyle, { backgroundColor: slide.color, width: this.state.pageWidth }]}
                     onLayout={this.getNewDimensions}
                 >
-                    <Text style={styles.slideTextStyle}>{slide.text}</Text>
+                    <Text style={[styles.slideTextStyle, {color: slide.textColor}]}>{slide.text}</Text>
                     {
                         this.renderLastSlide(index)
                     }
