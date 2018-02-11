@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, Dimensions, Orientation } from 'react-native';
 import { Button } from 'react-native-elements';
+import Swiper from 'react-native-swiper';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -20,7 +21,7 @@ class Slides extends Component {
         if (index === this.props.data.length - 1) {
             return (
                 <Button
-                    title="Got it!"
+                    //title="Got it!"
                     large
                     raised
                     icon={{name: 'thumb-up'}}
@@ -37,10 +38,18 @@ class Slides extends Component {
             return (
                 <View 
                     key={slide.text} 
-                    style={[styles.slideStyle, { backgroundColor: slide.color, width: this.state.pageWidth }]}
+                    style={
+                        [styles.slideStyle, { backgroundColor: slide.color, width: this.state.pageWidth }]}
                     onLayout={this.getNewDimensions}
                 >
-                    <Text style={[styles.slideTextStyle, {color: slide.textColor}]}>{slide.text}</Text>
+                    <Text style={
+                        [styles.slideTextStyle, 
+                        {
+                            color: slide.textColor,
+                            lineHeight: slide.lineHeight,
+                            fontSize: slide.fontSize
+                        }]
+                    }>{slide.text}</Text>
                     {
                         this.renderLastSlide(index)
                     }
@@ -51,18 +60,20 @@ class Slides extends Component {
 
     render() {
         return (
-            <ScrollView
-                horizontal    
-                style={{ flex: 1 }}
-                pagingEnabled
+            <Swiper 
+                style={styles.wrapper}
+                activeDotColor="#10fbfb"
+                loop={false}
             >
                 {this.renderSlides()}
-            </ScrollView>
+            </Swiper>
         );
     }
 }
 
 const styles = {
+    wrapper: {
+    },
     slideStyle: {
         flex: 1,
         justifyContent: 'center',
@@ -71,11 +82,12 @@ const styles = {
     slideTextStyle: {
         fontSize: 30,
         paddingLeft: 10,
+        lineHeight: 50,
         color: 'white',
         textAlign: 'center',
         marginLeft: 10,
         marginRight: 10,
-        marginBottom: 20
+        marginBottom: 20,
     }
 };
 

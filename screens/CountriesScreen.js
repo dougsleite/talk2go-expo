@@ -75,12 +75,12 @@ class CountriesScreen extends Component {
                 onLongPress={() => this.onItemLongPress(country)}
 
                 // Switch Props
-                onSwitch={() => this.onItemLongPress(country)}
-                switchButton
-                hideChevron
-                switchOnTintColor='#1f94d0'
-                switched={selected}
-                switchDisabled={selected}
+                // onSwitch={() => this.onItemLongPress(country)}
+                // switchButton
+                // hideChevron
+                // switchOnTintColor='#1f94d0'
+                // switched={selected}
+                // switchDisabled={selected}
             />
         );
     }
