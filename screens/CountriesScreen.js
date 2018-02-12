@@ -127,8 +127,6 @@ class CountriesScreen extends Component {
         const { homeCountry, selectedIndex } = this.props;
         const buttons = _.map( _.sortBy(homeCountry.languages, 'name'), i => i.name );
 
-        console.log(selectedIndex);
-
 		return(
             <View style={{ flex: 1 }}>          
                 <SearchBar
