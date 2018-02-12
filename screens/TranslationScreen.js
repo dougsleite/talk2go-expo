@@ -41,9 +41,8 @@ class TranslationScreen extends Component {
     toTranslationTabScreen = (countryLang) => () => {
         const { country } = this.props.navigation.state.params;
         const { homeCountry, selectedIndex } = this.props;
-        // FIXEME: Need to be the onde defined by the user
         const homeCountryLang = (_.sortBy(homeCountry.languages, 'name'))[selectedIndex].name;
-
+        
         // FIXME: Need to come from drawer key
         const textKey = 'greetings';
 

@@ -35,6 +35,10 @@ class CountriesScreen extends Component {
         };
     };
 
+    state = {
+        isLoadingHomeCountry: true
+    }
+
     componentWillMount() {
         this.props.fetchCountries();
         this.createDataSource(this.props);
@@ -48,11 +52,19 @@ class CountriesScreen extends Component {
     setDefaultHomeCountry = async (nextProps) => {
         const { countries, homeCountry, isLoading } = nextProps;
         if (!isLoading && isEmpty(homeCountry)) {
+
+            let homeCountryLangIndex = await AsyncStorage.getItem('homeCountryLangIndex');
+            if (homeCountryLangIndex) {
+                this.updateIndex(parseInt(homeCountryLangIndex));
+            }
+
             let homeCountryUuid = await AsyncStorage.getItem('homeCountryUuid');
             const uuid = homeCountryUuid == null ? DEFAULT_COUNTRY_UUID : homeCountryUuid;
             const defaultCountry = countries.find(c => c.uuid == uuid)
             this.props.changeHomeCountry(defaultCountry);
             this.setHeaderFlag(defaultCountry);
+
+            this.setState({ isLoadingHomeCountry: false });
         }
     }
 
@@ -74,7 +86,7 @@ class CountriesScreen extends Component {
 
     onItemLongPress = (country) => {
         this.props.changeHomeCountry(country);
-        this.props.setHomeCountryLanguage(0);
+        this.updateIndex(0);
         this.setHeaderFlag(country);
     };
 
@@ -84,6 +96,7 @@ class CountriesScreen extends Component {
 
     updateIndex = (selectedIndex) => {
         this.props.setHomeCountryLanguage(selectedIndex);
+        AsyncStorage.setItem('homeCountryLangIndex', String(selectedIndex));
     }
 
     renderRow = (country) => {
@@ -106,13 +119,15 @@ class CountriesScreen extends Component {
     }
 
 	render() {
-        if (this.props.isLoading) {
+        if (this.props.isLoading || this.state.isLoadingHomeCountry) {
             return <Spinner size="large" />;
         }
 
         // Button Group props
         const { homeCountry, selectedIndex } = this.props;
         const buttons = _.map( _.sortBy(homeCountry.languages, 'name'), i => i.name );
+
+        console.log(selectedIndex);
 
 		return(
             <View style={{ flex: 1 }}>          
