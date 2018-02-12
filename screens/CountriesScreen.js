@@ -53,11 +53,18 @@ class CountriesScreen extends Component {
     setDefaultHomeCountry = async (nextProps) => {
         const { countries, homeCountry, isLoading } = nextProps;
         if (!isLoading && isEmpty(homeCountry)) {
+
+            let homeCountryLangIndex = await AsyncStorage.getItem('homeCountryLangIndex');
+            if (homeCountryLangIndex) {
+                this.updateIndex(parseInt(homeCountryLangIndex));
+            }
+
             let homeCountryUuid = await AsyncStorage.getItem('homeCountryUuid');
             const uuid = homeCountryUuid == null ? DEFAULT_COUNTRY_UUID : homeCountryUuid;
             const defaultCountry = countries.find(c => c.uuid == uuid)
             this.props.changeHomeCountry(defaultCountry);
             this.setHeaderFlag(defaultCountry);
+
             this.setState({ isLoadingHomeCountry: false });
         }
     }
