@@ -36,7 +36,8 @@ class CountriesScreen extends Component {
     };
 
     state = {
-        isLoadingHomeCountry: true
+        isLoadingHomeCountry: true,
+        selectedIndex: 0
     }
 
     componentWillMount() {
@@ -52,18 +53,11 @@ class CountriesScreen extends Component {
     setDefaultHomeCountry = async (nextProps) => {
         const { countries, homeCountry, isLoading } = nextProps;
         if (!isLoading && isEmpty(homeCountry)) {
-
-            let homeCountryLangIndex = await AsyncStorage.getItem('homeCountryLangIndex');
-            if (homeCountryLangIndex) {
-                this.updateIndex(parseInt(homeCountryLangIndex));
-            }
-
             let homeCountryUuid = await AsyncStorage.getItem('homeCountryUuid');
             const uuid = homeCountryUuid == null ? DEFAULT_COUNTRY_UUID : homeCountryUuid;
             const defaultCountry = countries.find(c => c.uuid == uuid)
             this.props.changeHomeCountry(defaultCountry);
             this.setHeaderFlag(defaultCountry);
-
             this.setState({ isLoadingHomeCountry: false });
         }
     }
@@ -81,7 +75,7 @@ class CountriesScreen extends Component {
     } 
 
     onItemPress = (country) => {
-        this.props.navigation.navigate('translation', { country });
+        this.props.navigation.navigate('translation', { country, countryLangIdx: this.state.selectedIndex });
     };
 
     onItemLongPress = (country) => {
@@ -95,7 +89,7 @@ class CountriesScreen extends Component {
     }
 
     updateIndex = (selectedIndex) => {
-        this.props.setHomeCountryLanguage(selectedIndex);
+        this.setState({ selectedIndex });
         AsyncStorage.setItem('homeCountryLangIndex', String(selectedIndex));
     }
 
@@ -124,7 +118,7 @@ class CountriesScreen extends Component {
         }
 
         // Button Group props
-        const { homeCountry, selectedIndex } = this.props;
+        const { homeCountry } = this.props;
         const buttons = _.map( _.sortBy(homeCountry.languages, 'name'), i => i.name );
 
 		return(
@@ -136,7 +130,7 @@ class CountriesScreen extends Component {
                 />   
                 <ButtonGroup 
                     onPress={this.updateIndex}
-                    selectedIndex={selectedIndex}
+                    selectedIndex={this.state.selectedIndex}
                     buttons={buttons}
                     containerStyle={{height: 30}}
                     selectedBackgroundColor="#b4e1ff"
@@ -158,8 +152,7 @@ const mapStateToProps = ({ countries: { data, filterBy, isLoading, selectedIdx }
     return { 
         countries: _.sortBy(filteredData, ['name']), 
         isLoading, 
-        homeCountry: homeCountry.data,
-        selectedIndex: homeCountry.selectedIndex
+        homeCountry
     };
 }
 

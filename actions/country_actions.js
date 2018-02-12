@@ -5,8 +5,7 @@ import country_data from '../assets/data/country';
 import {
     COUNTRIES_FETCH_SUCCESS,
     COUNTRIES_FILTER_UPDATED,
-    HOME_COUNTRY_CHANGED,
-    HOME_COUNTRY_LANG_INDX
+    HOME_COUNTRY_CHANGED
 } from './types';
 
 const FETCH_JOB_URL = 'https://us-central1-talk2go-acfdf.cloudfunctions.net/fetchListCountries';
@@ -34,10 +33,3 @@ export const changeHomeCountry = (country) => async (dispatch) => {
         payload: country
     });
 };
-
-export const setHomeCountryLanguage = (index) => {
-    return {
-        type: HOME_COUNTRY_LANG_INDX,
-        payload: { index }
-    }
-}
