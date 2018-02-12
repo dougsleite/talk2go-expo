@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { ListView, View, Text, AsyncStorage} from 'react-native';
-import { List, ListItem, SearchBar, Avatar } from 'react-native-elements';
+import { List, ListItem, SearchBar, Avatar, ButtonGroup } from 'react-native-elements';
 import { connect } from 'react-redux';
 import expo from 'expo';
 import { HEADER_STYLE, HEADER_TITLE_STYLE } from '../styles/commons';
@@ -74,8 +74,17 @@ class CountriesScreen extends Component {
 
     onItemLongPress = (country) => {
         this.props.changeHomeCountry(country);
+        this.props.setHomeCountryLanguage(0);
         this.setHeaderFlag(country);
     };
+
+    onSearchChangeText = (text) => {
+        this.props.updateCountriesFilter(text.toUpperCase());
+    }
+
+    updateIndex = (selectedIndex) => {
+        this.props.setHomeCountryLanguage(selectedIndex);
+    }
 
     renderRow = (country) => {
         const selected = country.uuid === this.props.homeCountry.uuid;
@@ -96,14 +105,15 @@ class CountriesScreen extends Component {
         );
     }
 
-    onSearchChangeText = (text) => {
-        this.props.updateCountriesFilter(text.toUpperCase());
-    }
-
 	render() {
         if (this.props.isLoading) {
             return <Spinner size="large" />;
         }
+
+        // Button Group props
+        const { homeCountry, selectedIndex } = this.props;
+        const buttons = _.map( _.sortBy(homeCountry.languages, 'name'), i => i.name );
+
 		return(
             <View style={{ flex: 1 }}>          
                 <SearchBar
@@ -111,6 +121,13 @@ class CountriesScreen extends Component {
                     lightTheme
                     onChangeText={this.onSearchChangeText}
                 />   
+                <ButtonGroup 
+                    onPress={this.updateIndex}
+                    selectedIndex={selectedIndex}
+                    buttons={buttons}
+                    containerStyle={{height: 30}}
+                    selectedBackgroundColor="#b4e1ff"
+                />
                 <List containerStyle={{ flex:1, marginTop: 0}}>
                     <ListView
                         enableEmptySections
@@ -123,9 +140,14 @@ class CountriesScreen extends Component {
 	}
 }
 
-const mapStateToProps = ({ countries: { data, filterBy, isLoading }, homeCountry }) => {
+const mapStateToProps = ({ countries: { data, filterBy, isLoading, selectedIdx }, homeCountry }) => {
     const filteredData = filterBy ? data.filter(c => c.name.toUpperCase().startsWith(filterBy)) : data;
-    return { countries: _.sortBy(filteredData, ['name']), isLoading, homeCountry };
+    return { 
+        countries: _.sortBy(filteredData, ['name']), 
+        isLoading, 
+        homeCountry: homeCountry.data,
+        selectedIndex: homeCountry.selectedIndex
+    };
 }
 
 const isEmpty = (obj) => {

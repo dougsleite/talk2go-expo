@@ -40,9 +40,9 @@ class TranslationScreen extends Component {
 
     toTranslationTabScreen = (countryLang) => () => {
         const { country } = this.props.navigation.state.params;
-        const { homeCountry } = this.props;
+        const { homeCountry, selectedIndex } = this.props;
         // FIXEME: Need to be the onde defined by the user
-        const homeCountryLang = homeCountry.languages[0].name;
+        const homeCountryLang = (_.sortBy(homeCountry.languages, 'name'))[selectedIndex].name;
 
         // FIXME: Need to come from drawer key
         const textKey = 'greetings';
@@ -93,7 +93,7 @@ class TranslationScreen extends Component {
 }
 
 const mapStateToProps = ({ homeCountry }) => {
-    return { homeCountry };
+    return { homeCountry: homeCountry.data, selectedIndex: homeCountry.selectedIndex };
 };
 
 export default connect(mapStateToProps)(TranslationScreen);
