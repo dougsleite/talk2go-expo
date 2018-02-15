@@ -9,6 +9,7 @@ import store from './store';
 import CountriesScreen from './screens/CountriesScreen';
 import TranslationScreen from './screens/TranslationScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
+import InformationScreen from './screens/InformationScreen';
 
 export default class App extends Component {
 
@@ -34,7 +35,8 @@ export default class App extends Component {
     render() {
         const CountryFlow = StackNavigator({
             countries: { screen: CountriesScreen },
-            translation: { screen: TranslationScreen }
+            translation: { screen: TranslationScreen },
+            information: { screen: InformationScreen }
         });
 
         const MainNavigator = StackNavigator({

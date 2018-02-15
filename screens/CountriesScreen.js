@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { ListView, View, Text, AsyncStorage} from 'react-native';
-import { List, ListItem, SearchBar, Avatar, ButtonGroup } from 'react-native-elements';
+import { ListView, View, Text, AsyncStorage, TouchableOpacity } from 'react-native';
+import { List, ListItem, SearchBar, Avatar, ButtonGroup, Icon, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import expo from 'expo';
 import { HEADER_STYLE, HEADER_TITLE_STYLE } from '../styles/commons';
@@ -29,9 +29,23 @@ class CountriesScreen extends Component {
                     activeOpacity={0.9}
                     containerStyle={{paddingLeft: 60}}
                     overlayContainerStyle={HEADER_STYLE}
-                    avatarStyle={{borderRadius: 16, borderColor:'white', borderWidth: 2}}
+                    avatarStyle={{
+                        borderRadius: 16, 
+                        borderColor:'#ffffff', 
+                        borderWidth: 2
+                    }}
                 />
             ),
+            headerRight: (
+                <Icon
+                    component={TouchableOpacity}
+                    name='info-outline'
+                    color='white'
+                    size={26}
+                    onPress={() => navigate('information')}
+                    containerStyle={{paddingRight:15}}
+                />             
+            )
         };
     };
 
@@ -129,18 +143,22 @@ class CountriesScreen extends Component {
         const buttons = _.map( _.sortBy(homeCountry.languages, 'name'), i => i.name );
 
 		return(
-            <View style={{ flex: 1 }}>          
+            <View style={{ flex: 1, backgroundColor: "white" }}>          
                 <SearchBar
                     clearIcon
                     lightTheme
                     onChangeText={this.onSearchChangeText}
+                    containerStyle={styles.searchBarContainerStyle}
+                    inputStyle={styles.searchBarInputStyle}
+                    placeholder="Search"
                 />   
                 <ButtonGroup 
                     onPress={this.updateIndex}
                     selectedIndex={this.state.selectedIndex}
                     buttons={buttons}
-                    containerStyle={{height: 30}}
-                    selectedBackgroundColor="#b4e1ff"
+                    containerStyle={styles.buttonGroupContainerStyle}
+                    selectedButtonStyle={styles.buttonGroupSelectedButtonStyle}
+                    selectedTextStyle={styles.buttonGroupSelectedTextStyle}
                 />
                 <List containerStyle={{ flex:1, marginTop: 0}}>
                     <ListView
@@ -165,6 +183,25 @@ const mapStateToProps = ({ countries: { data, filterBy, isLoading, selectedIdx }
 
 const isEmpty = (obj) => {
     return !Object.keys(obj).length;
+};
+
+const styles = {
+    searchBarContainerStyle: {
+        backgroundColor: "white",
+    },
+    searchBarInputStyle: {
+        backgroundColor: "#3b5998",
+        color: "white",
+    },
+    buttonGroupContainerStyle: {
+        height: 30,
+    },
+    buttonGroupSelectedButtonStyle: {
+        backgroundColor: HEADER_STYLE.backgroundColor
+    },
+    buttonGroupSelectedTextStyle: {
+        color: "white"
+    }
 };
 
 export default connect( mapStateToProps, actions )(CountriesScreen);
