@@ -55,7 +55,12 @@ class InformationScreen extends Component {
                         title='See more details' 
                         onPress={() => Linking.openURL(FLATICON_URL)}
                     />                                   
-                </Card>                
+                </Card>      
+                <Card>
+                    <Text style={styles.textCardStyle}>
+                        © 2018 Talk2Go. All rights reserved.
+                    </Text> 
+                </Card>                                                          
             </View>
         );
     }
