@@ -77,10 +77,11 @@ class TranslationScreen extends Component {
             tabBarPosition: 'bottom',
             lazy: true,
             tabBarOptions: {
-                activeTintColor: "#1f94d0",
+                activeTintColor: "#03A9F4",
                 labelStyle: {
                   fontSize: 15,
-                  fontWeight: "bold"
+                  fontWeight: "bold",
+                  marginBottom: 15
                 },
             }
         });

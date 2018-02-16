@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Linking } from 'react-native';
+import { ScrollView, Text, Linking } from 'react-native';
 import { Card, Button } from 'react-native-elements'; 
 import { HEADER_STYLE, HEADER_TITLE_STYLE } from '../styles/commons';
 
@@ -21,10 +21,10 @@ class InformationScreen extends Component {
 
     render() {
         return (
-            <View>
+            <ScrollView style={{ flex: 1 }}>
                 <Card title='Sponsors'>
                     <Text style={styles.textCardStyle}>
-                        This app was supported by{"\n"} Viajante Fora da Curva
+                        This app was supported by the awesome travel blog Viajante Fora da Curva
                     </Text> 
                     <Button
                         icon={{name: 'open-in-browser'}}
@@ -55,13 +55,33 @@ class InformationScreen extends Component {
                         title='See more details' 
                         onPress={() => Linking.openURL(FLATICON_URL)}
                     />                                   
-                </Card>      
-                <Card>
+                </Card>  
+                <Card title='Contact'>
+                    <Text style={styles.textCardStyle}>
+                        If you have any comments or feedback please let us know! 
+                        Talk2Go team would be glad to hear from you!
+                    </Text> 
+                    <Button
+                        icon={{name: 'email'}}
+                        backgroundColor='#03A9F4'
+                        buttonStyle={{
+                            borderRadius: 0, 
+                            marginLeft: 0,
+                            marginRight: 0, 
+                            marginBottom: 0
+                        }}
+                        title='Contact us' 
+                        onPress={() => Linking.openURL(`mailto:talk2go.feedback@gmail.com
+                        ?subject=[Talk2Go Feedback]
+                        &body=Tell us more about your thoughts! :)`)}
+                    />                                   
+                </Card>       
+                <Card containerStyle={{ marginBottom: 15 }}>
                     <Text style={styles.textCardStyle}>
                         © 2018 Talk2Go. All rights reserved.
                     </Text> 
                 </Card>                                                          
-            </View>
+            </ScrollView>
         );
     }
 }

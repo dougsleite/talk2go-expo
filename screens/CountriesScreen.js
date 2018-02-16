@@ -124,7 +124,7 @@ class CountriesScreen extends Component {
                 title={country.name}
                 subtitle={country.native_name}
                 avatar={{uri: countryImgUri}}
-                containerStyle={[selected && { backgroundColor: '#b4e1ff' }]}
+                containerStyle={[selected && { backgroundColor: '#03A9F4' }]}
 
                 // Press Props
                 onPress={() => this.onItemPress(country)}
