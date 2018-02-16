@@ -26,10 +26,10 @@ export const updateCountriesFilter = (text) => {
     };
 };
 
-export const changeHomeCountry = (country) => async (dispatch) => {
+export const changeHomeCountry = (country) => {
     AsyncStorage.setItem('homeCountryUuid', country.uuid);
-    dispatch({
+    return {
         type: HOME_COUNTRY_CHANGED,
         payload: country
-    });
+    };
 };
