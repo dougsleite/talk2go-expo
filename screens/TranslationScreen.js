@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { ListView, View, Text} from 'react-native';
+import { View, Text} from 'react-native';
 import { List, ListItem, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { HEADER_STYLE, HEADER_TITLE_STYLE } from '../styles/commons';

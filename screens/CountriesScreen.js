@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { ListView, View, Text, AsyncStorage, TouchableOpacity } from 'react-native';
+import { FlatList, View, Text, AsyncStorage, TouchableOpacity } from 'react-native';
 import { List, ListItem, SearchBar, Avatar, ButtonGroup, Icon, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import expo from 'expo';
@@ -56,11 +56,9 @@ class CountriesScreen extends Component {
 
     componentWillMount() {
         this.props.fetchCountries();
-        this.createDataSource(this.props);
     }
 
     componentWillReceiveProps(nextProps) {
-        this.createDataSource(nextProps);
         this.setDefaultHomeCountry(nextProps);
     }
 
@@ -88,13 +86,6 @@ class CountriesScreen extends Component {
         this.props.navigation.setParams({ countryImgUri });
     }
 
-    createDataSource({ countries }) {
-        const ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 !== r2
-        });
-        this.dataSource = ds.cloneWithRows(countries);
-    } 
-
     onItemPress = (country) => {
         this.props.navigation.navigate('translation', { country, countryLangIdx: this.state.selectedIndex });
     };
@@ -114,7 +105,8 @@ class CountriesScreen extends Component {
         AsyncStorage.setItem('homeCountryLangIndex', String(selectedIndex));
     }
 
-    renderRow = (country) => {
+    renderRow = ({ item }) => {
+        const country = item;
         const selected = country.uuid === this.props.homeCountry.uuid;
         const countryImgUri = Expo.Asset.fromModule(_.get(iconFlags, country.name)).uri;
         return (
@@ -125,6 +117,7 @@ class CountriesScreen extends Component {
                 subtitle={country.native_name}
                 avatar={{uri: countryImgUri}}
                 containerStyle={[selected && { backgroundColor: '#03A9F4' }]}
+                component={TouchableOpacity}
 
                 // Press Props
                 onPress={() => this.onItemPress(country)}
@@ -139,7 +132,7 @@ class CountriesScreen extends Component {
         }
 
         // Button Group props
-        const { homeCountry } = this.props;
+        const { homeCountry, countries } = this.props;
         const buttons = _.map( _.sortBy(homeCountry.languages, 'name'), i => i.name );
 
 		return(
@@ -161,10 +154,10 @@ class CountriesScreen extends Component {
                     selectedTextStyle={styles.buttonGroupSelectedTextStyle}
                 />
                 <List containerStyle={{ flex:1, marginTop: 0}}>
-                    <ListView
-                        enableEmptySections
-                        renderRow={this.renderRow}
-                        dataSource={this.dataSource}
+                    <FlatList
+                        data={countries}
+                        renderItem={this.renderRow}
+                        keyExtractor={ (item, index) => item.uuid}
                     />
                 </List>            
             </View>

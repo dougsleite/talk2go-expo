@@ -1,21 +1,22 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import expo from 'expo';
-import { View, Text, ListView } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import { Card, List, ListItem } from 'react-native-elements';
 import sounds from '../assets/sounds';
 
 class TranslationTabScreen extends Component {
+    
+    state = {
+        data: []
+    }
 
     componentWillMount() {
-        this.createDataSource(this.props);
+        const data = this.createDataSource();
+        this.setState({ data });
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.createDataSource(nextProps);
-    }
-    createDataSource(props) {
-
+    createDataSource = () => {
         const { 
             fromCountryName,
             fromCountryLang,
@@ -24,9 +25,7 @@ class TranslationTabScreen extends Component {
             toCountryLang,
             toTranslationText,
             textKey
-         } = props;
-
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+         } = this.props;
         
         const filteredFrom = this.filterOutSubText(fromTranslationText);
         const filteredTo = this.filterOutSubText(toTranslationText);
@@ -34,7 +33,7 @@ class TranslationTabScreen extends Component {
             return { from: v1, to: v2 };
         });
 
-        const data = _.map(mergedTexts, (value, key) => {
+        return _.map(mergedTexts, (value, key) => {
 
             const fromSoundSpecific = `${fromCountryLang}-${fromCountryName}.${textKey}.${key}`;
             const fromSoundDefault = `${fromCountryLang}.${textKey}.${key}`;
@@ -51,7 +50,6 @@ class TranslationTabScreen extends Component {
                 toSound:  _.get(sounds, toSoundSpecific, _.get(sounds, toSoundDefault))
             };
         });
-        this.dataSource = ds.cloneWithRows(data);
     }    
     
     filterOutSubText = (text) => {
@@ -62,7 +60,8 @@ class TranslationTabScreen extends Component {
         await Expo.Audio.Sound.create(soundToPlay, { shouldPlay: true });
     }
 
-    renderRow = (translationRow) => {
+    renderRow = ({ item }) => {
+        const translationRow = item;
         return(
             <Card>
                 <ListItem 
@@ -90,10 +89,10 @@ class TranslationTabScreen extends Component {
     render() {
         return (
             <List containerStyle={{ flex : 1 , marginTop: 0}}>
-                <ListView
-                    enableEmptySections
-                    renderRow={this.renderRow}
-                    dataSource={this.dataSource}
+                <FlatList
+                    data={this.state.data}
+                    renderItem={this.renderRow}   
+                    keyExtractor={ (item, index) => index}                 
                 />         
             </List>               
         );
