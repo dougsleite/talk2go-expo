@@ -62,6 +62,7 @@ class TranslationTabScreen extends Component {
 
     renderRow = ({ item }) => {
         const translationRow = item;
+        const iconProps = { name: 'hearing', color: '#646873' };
         return(
             <Card>
                 <ListItem 
@@ -69,7 +70,7 @@ class TranslationTabScreen extends Component {
                     title={translationRow.fromText}
                     subtitle={translationRow.fromSubText}
                     avatar={{uri: this.props.fromIconUri}}
-                    rightIcon={{name: 'hearing'}}
+                    rightIcon={iconProps}
                     hideChevron={translationRow.fromSound == null}
                     onPressRightIcon={() => this.playSound(translationRow.fromSound)}
                 />
@@ -78,7 +79,7 @@ class TranslationTabScreen extends Component {
                     title={translationRow.toText}
                     subtitle={translationRow.toSubText}
                     avatar={{uri: this.props.toIconUri}}
-                    rightIcon={{name: 'hearing'}}
+                    rightIcon={iconProps}
                     hideChevron={translationRow.toSound == null}
                     onPressRightIcon={() => this.playSound(translationRow.toSound)}
                 />

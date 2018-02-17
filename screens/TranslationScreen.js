@@ -19,7 +19,8 @@ class TranslationScreen extends Component {
             headerStyle: HEADER_STYLE,
             headerTitleStyle: HEADER_TITLE_STYLE,
             headerBackTitleStyle: HEADER_TITLE_STYLE,
-            headerBackTitle: null
+            headerBackTitle: null,
+            headerTintColor: "#ffffff"
         };
     };
 
