@@ -27,12 +27,12 @@ export default {
         "g4": "رجاء",
         "g5": "عفوا",
         "g6": "وداعا",
-        "_g1": "marhabaan",
-        "_g2": "shukraan",
-        "_g3": "asif",
-        "_g4": "raja'",
-        "_g5": "efu",
-        "_g6": "wadaeaan"     
+        "_g1": "Marhabaan",
+        "_g2": "Shukraan",
+        "_g3": "Asif",
+        "_g4": "Raja'",
+        "_g5": "Efu",
+        "_g6": "Wadaeaan"     
       }
     },
     "Armenian": {
@@ -86,8 +86,8 @@ export default {
         "g5": "Извинете ме",
         "g6": "Чао",
         "_g1": "Zdrasti",
-        "_g2": "blagodarya",
-        "_g3": "sŭzhalyavam",
+        "_g2": "Blagodarya",
+        "_g3": "Sŭzhalyavam",
         "_g4": "Molya te",
         "_g5": "Izvinete me",
         "_g6": "Chao"        
@@ -112,11 +112,11 @@ export default {
         "g5": "打擾一下",
         "g6": "再見",
         "_g1": "Nǐ hǎo",
-        "_g2": "xièxiè",
-        "_g3": "bàoqiàn",
-        "_g4": "qǐng",
-        "_g5": "dǎrǎo yīxià",
-        "_g6": "zàijiàn"
+        "_g2": "Xièxiè",
+        "_g3": "Bàoqiàn",
+        "_g4": "Qǐng",
+        "_g5": "Dǎrǎo yīxià",
+        "_g6": "Zàijiàn"
       }
     },
     "Czech": {
@@ -207,7 +207,7 @@ export default {
         "g4": "Σας παρακαλούμε",
         "g5": "Με συγχωρείτε",
         "g6": "Αντίο",
-        "_g1": "geia",
+        "_g1": "Geia",
         "_g2": "Efcharistó",
         "_g3": "Sygnómi",
         "_g4": "Sas parakaloúme",
@@ -280,11 +280,11 @@ export default {
         "g5": "すみません",
         "g6": "さようなら",
         "_g1": "Kon'nichiwa",
-        "_g2": "arigatō",
-        "_g3": "gomen'nasai",
-        "_g4": "onegaishimasu",
-        "_g5": "sumimasen",
-        "_g6": "sayōnara",
+        "_g2": "Arigatō",
+        "_g3": "Gomen'nasai",
+        "_g4": "Onegaishimasu",
+        "_g5": "Sumimasen",
+        "_g6": "Sayōnara",
       }
     },      
     "Korean": {
@@ -295,12 +295,12 @@ export default {
         "g4": "부디",
         "g5": "실례합니다",
         "g6": "안녕",
-        "_g1": "annyeong",
-        "_g2": "gamsa",
-        "_g3": "joesonghabnida",
-        "_g4": "budi",
-        "_g5": "sillyehabnida",
-        "_g6": "annyeong"        
+        "_g1": "Annyeong",
+        "_g2": "Gamsa",
+        "_g3": "Joesonghabnida",
+        "_g4": "Budi",
+        "_g5": "Sillyehabnida",
+        "_g6": "Annyeong"        
       }
     }, 
     "Latvian": {
@@ -338,11 +338,11 @@ export default {
         "g5": "मलाईं माफ गर्नुहोस्",
         "g6": "अलविदा",
         "_g1": "Namastē",
-        "_g2": "dhan'yavāda",
-        "_g3": "māpha garnuhōs",
-        "_g4": "kr̥payā",
-        "_g5": "malā'īṁ māpha garnuhōs",
-        "_g6": "alavidā"
+        "_g2": "Dhan'yavāda",
+        "_g3": "Māpha garnuhōs",
+        "_g4": "Kr̥payā",
+        "_g5": "Malā'īṁ māpha garnuhōs",
+        "_g6": "Alavidā"
       }
     },              
     "Norwegian": {
@@ -394,11 +394,11 @@ export default {
         "g5": "Извините",
         "g6": "до свидания",
         "_g1": "Zdravstvuy",
-        "_g2": "spasibo",
-        "_g3": "sozhaleyu",
-        "_g4": "pozhaluysta",
+        "_g2": "Spasibo",
+        "_g3": "Sozhaleyu",
+        "_g4": "Pozhaluysta",
         "_g5": "Izvinite",
-        "_g6": "do svidaniya",        
+        "_g6": "Do svidaniya",        
       }
     },  
     "Serbian": {
@@ -422,7 +422,7 @@ export default {
         "g1": "Ahoj",
         "g2": "Poďakovať",
         "g3": "Prepáč",
-        "g4": "prosím",
+        "g4": "Prosím",
         "g5": "Ospravedlnte ma",
         "g6": "Zbohom"
       }
