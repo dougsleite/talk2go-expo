@@ -10,6 +10,8 @@ import TranslationTabScreen from './TranslationTabScreen';
 import iconFlags from '../assets/icons/flags';
 import text from '../assets/data/text';
 
+const BLUE_COLOR = '#03A9F4';
+
 class TranslationScreen extends Component {
 
     static navigationOptions = ({ navigation }) => {
@@ -78,12 +80,20 @@ class TranslationScreen extends Component {
             tabBarPosition: 'bottom',
             lazy: true,
             tabBarOptions: {
-                activeTintColor: "#03A9F4",
+                pressColor: BLUE_COLOR,
+                activeTintColor: BLUE_COLOR,
+                inactiveTintColor: '#707070',
                 labelStyle: {
                   fontSize: 15,
                   fontWeight: "bold",
                   marginBottom: 15
                 },
+                style: {
+                    backgroundColor: '#D3D3D3',
+                },
+                indicatorStyle: {
+                    backgroundColor: BLUE_COLOR,
+                }
             }
         });
         return(
