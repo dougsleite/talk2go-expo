@@ -1,5 +1,15 @@
 {
   "expo": {
-    "sdkVersion": "25.0.0"
+   "name": "Talk2Go",
+   "icon": "./assets/icons/talk2go-logo.png",
+   "version": "1.0.0",
+   "slug": "talk2go",
+   "sdkVersion": "25.0.0",
+   "ios": {
+     "bundleIdentifier": "com.talk2go"
+   },
+   "android": {
+     "package": "com.talk2go"
+   }
   }
 }
