@@ -72,7 +72,7 @@ class TranslationTabScreen extends Component {
                     avatar={{uri: this.props.fromIconUri}}
                     rightIcon={iconProps}
                     hideChevron={translationRow.fromSound == null}
-                    onPressRightIcon={() => this.playSound(translationRow.fromSound)}
+                    onPress={translationRow.fromSound == null ? null : () => this.playSound(translationRow.fromSound)}
                 />
                 <ListItem 
                     roundAvatar
@@ -81,7 +81,7 @@ class TranslationTabScreen extends Component {
                     avatar={{uri: this.props.toIconUri}}
                     rightIcon={iconProps}
                     hideChevron={translationRow.toSound == null}
-                    onPressRightIcon={() => this.playSound(translationRow.toSound)}
+                    onPress={translationRow.toSound == null ? null : () => this.playSound(translationRow.toSound)}
                 />
             </Card>
         );
