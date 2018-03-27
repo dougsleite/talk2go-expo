@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { FlatList, View, Text, AsyncStorage, TouchableOpacity } from 'react-native';
+import { FlatList, View, Text, AsyncStorage, TouchableOpacity, Platform } from 'react-native';
 import { List, ListItem, SearchBar, Avatar, ButtonGroup, Icon, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import expo from 'expo';
@@ -138,12 +138,11 @@ class CountriesScreen extends Component {
 		return(
             <View style={{ flex: 1, backgroundColor: "white" }}>          
                 <SearchBar
-                    clearIcon
-                    lightTheme
+                    ref={search => this.search = search}
+                    platform={Platform.OS}
                     onChangeText={this.onSearchChangeText}
-                    containerStyle={styles.searchBarContainerStyle}
-                    inputStyle={styles.searchBarInputStyle}
                     placeholder="Search"
+                    onCancel={() => this.search.clear()}
                 />   
                 <ButtonGroup 
                     onPress={this.updateIndex}
@@ -179,13 +178,6 @@ const isEmpty = (obj) => {
 };
 
 const styles = {
-    searchBarContainerStyle: {
-        backgroundColor: "white",
-    },
-    searchBarInputStyle: {
-        backgroundColor: "#3b5998",
-        color: "white",
-    },
     buttonGroupContainerStyle: {
         height: 30,
     },

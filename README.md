@@ -1,7 +1,7 @@
 ## Start Project
 npm start
 
-## Publish to Expo
+## Configuring EXP 
 https://expo.io/@dougsleite/talk2go
 
 ### 1. Install exp
@@ -25,13 +25,14 @@ npm install -g exp
   }
 }
 
-### 3. Start the build
+## Publishing to Expo
+exp publish
+
+## Generating APK or IPA
 
 Android: exp build:android
 iOS:     exp build:ios
 
-### 4. Wait for it to finish building
+Wait for it to finish building then visit printed URL or:
 
-Visit printed URL or
-
-exp build:status
+  exp build:status

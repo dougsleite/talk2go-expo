@@ -41,13 +41,19 @@ class TranslationTabScreen extends Component {
             const toSoundSpecific = `${toCountryLang}-${toCountryName}.${textKey}.${key}`;
             const toSoundDefault = `${toCountryLang}.${textKey}.${key}`;
 
+            const fromSound = new Expo.Audio.Sound();
+            fromSound.loadAsync(_.get(sounds, fromSoundSpecific, _.get(sounds, fromSoundDefault)));
+
+            const toSound = new Expo.Audio.Sound();
+            toSound.loadAsync(_.get(sounds, toSoundSpecific, _.get(sounds, toSoundDefault)));
+
             return { 
                 fromText: value.from,
                 fromSubText: fromTranslationText[`_${key}`],
-                fromSound: _.get(sounds, fromSoundSpecific, _.get(sounds, fromSoundDefault)),
+                fromSound: fromSound,
                 toText: value.to,
                 toSubText: toTranslationText[`_${key}`],
-                toSound:  _.get(sounds, toSoundSpecific, _.get(sounds, toSoundDefault))
+                toSound: toSound
             };
         });
     }    
@@ -57,7 +63,12 @@ class TranslationTabScreen extends Component {
     }
 
     playSound = async (soundToPlay) => {
-        await Expo.Audio.Sound.create(soundToPlay, { shouldPlay: true });
+        //await Expo.Audio.Sound.create(soundToPlay, { shouldPlay: true });
+        try {
+            await soundToPlay.playAsync(); 
+        } catch (error) {
+            soundObject.unloadAsync();
+        }
     }
 
     renderRow = ({ item }) => {
