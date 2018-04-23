@@ -6,7 +6,7 @@ import iconFlags from '../assets/icons/flags';
 
 const GRAY_COLOR = '#646873';
 
-class MyListItem extends PureComponent {
+class ListItem extends PureComponent {
     render() {
         const { 
             title, 
@@ -82,4 +82,4 @@ const styles = {
     }
 };
 
-export { MyListItem };
+export { ListItem };

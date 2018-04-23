@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, Text, Dimensions} from 'react-native';
-import { List, ListItem, Icon } from 'react-native-elements';
+import { View, Dimensions} from 'react-native';
 import { connect } from 'react-redux';
 import { HEADER_STYLE, HEADER_TITLE_STYLE } from '../styles/commons';
 import { TabNavigator } from 'react-navigation';
@@ -85,7 +84,6 @@ class TranslationScreen extends Component {
         this.getTranslationText(countryLang, textKey);
 
         return (
-            //<Text>bye</Text>
             <TranslationTabScreen 
                 fromCountryName={homeCountry.name}
                 fromCountryLang={homeCountryLang}

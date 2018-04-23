@@ -1,8 +1,9 @@
 import _ from 'lodash';
-import React, { Component, PureComponent } from 'react';
-import expo from 'expo';
+import React, { PureComponent } from 'react';
 import { View, Text, ListView } from 'react-native';
-import { Spinner, MyListItem, Card, CardSection } from '../components';
+import { Spinner, ListItem, Card, CardSection } from '../components';
+
+import expo from 'expo';
 import sounds from '../assets/sounds';
 
 class TranslationTabScreen extends PureComponent {
@@ -79,7 +80,7 @@ class TranslationTabScreen extends PureComponent {
     renderRow = (translationRow, sectionID) => {
         return(
             <CardSection>
-                <MyListItem 
+                <ListItem 
                     title={translationRow.fromText}
                     subtitle={translationRow.fromSubText}
                     avatarSrc={this.props.fromIconUri}
@@ -87,7 +88,7 @@ class TranslationTabScreen extends PureComponent {
                     hideChevron={translationRow.fromSound == null}
                     onPress={translationRow.fromSound == null ? null : () => this.playSound(translationRow.fromSound)}
                 />
-                <MyListItem 
+                <ListItem 
                     title={translationRow.toText}
                     subtitle={translationRow.toSubText}
                     avatarSrc={this.props.toIconUri}
