@@ -311,17 +311,17 @@ export default {
         "icon": "flags/british-indian-ocean-territory.png",
         "uuid": "42652351-c82f-4543-b030-9f9d05c11246"
       },
-      {
-        "languages": [
-          {
-            "nativeName": "български език",
-            "name": "Bulgarian"
-          }
-        ],
-        "name": "Bulgaria",
-        "icon": "flags/bulgaria.png",
-        "uuid": "430b0e5f-bfdf-4911-9358-fa9df80284f9"
-      },
+      // {
+      //   "languages": [
+      //     {
+      //       "nativeName": "български език",
+      //       "name": "Bulgarian"
+      //     }
+      //   ],
+      //   "name": "Bulgaria",
+      //   "icon": "flags/bulgaria.png",
+      //   "uuid": "430b0e5f-bfdf-4911-9358-fa9df80284f9"
+      // },
       {
         "languages": [
           {

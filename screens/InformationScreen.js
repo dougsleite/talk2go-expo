@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, Text, Linking } from 'react-native';
-import { Card, Button } from 'react-native-elements'; 
+import { Card, Button, Icon } from 'react-native-elements'; 
 import { HEADER_STYLE, HEADER_TITLE_STYLE } from '../styles/commons';
 
 const FLATICON_URL = 'https://www.flaticon.com/packs/countrys-flags';
@@ -27,14 +27,14 @@ class InformationScreen extends Component {
                         This app was supported by the awesome travel blog Viajante Fora da Curva
                     </Text> 
                     <Button
-                        icon={{name: 'open-in-browser'}}
-                        backgroundColor='#03A9F4'
-                        buttonStyle={{
-                            borderRadius: 0, 
-                            marginLeft: 0,
-                            marginRight: 0, 
-                            marginBottom: 0
-                        }}
+                        icon={
+                            <Icon
+                              name='open-in-browser'
+                              size={20}
+                              color='white'
+                            />
+                        }                        
+                        buttonStyle={styles.buttonStyle}
                         title='Visit it!' 
                         onPress={() => Linking.openURL(VIAJANTE_FORA_DA_CURVA)}
                     />                                   
@@ -44,14 +44,14 @@ class InformationScreen extends Component {
                         The flag icons used by this app were designed by Freepik from Flaticon
                     </Text> 
                     <Button
-                        icon={{name: 'code'}}
-                        backgroundColor='#03A9F4'
-                        buttonStyle={{
-                            borderRadius: 0, 
-                            marginLeft: 0,
-                            marginRight: 0, 
-                            marginBottom: 0
-                        }}
+                        icon={
+                            <Icon
+                              name='code'
+                              size={20}
+                              color='white'
+                            />
+                        }
+                        buttonStyle={styles.buttonStyle}
                         title='See more details' 
                         onPress={() => Linking.openURL(FLATICON_URL)}
                     />                                   
@@ -62,14 +62,14 @@ class InformationScreen extends Component {
                         Talk2Go team would be glad to hear from you!
                     </Text> 
                     <Button
-                        icon={{name: 'email'}}
-                        backgroundColor='#03A9F4'
-                        buttonStyle={{
-                            borderRadius: 0, 
-                            marginLeft: 0,
-                            marginRight: 0, 
-                            marginBottom: 0
-                        }}
+                        icon={
+                            <Icon
+                              name='email'
+                              size={20}
+                              color='white'
+                            />
+                        }
+                        buttonStyle={styles.buttonStyle}
                         title='Contact us' 
                         onPress={() => Linking.openURL(`mailto:talk2go.feedback@gmail.com
                         ?subject=[Talk2Go Feedback]
@@ -90,6 +90,17 @@ const styles = {
     textCardStyle: {
         marginBottom: 10, 
         textAlign: 'center'
+    },
+    buttonStyle: {
+        backgroundColor: '#03A9F4',
+        borderWidth: 0,
+        borderRadius: 5, 
+        marginLeft: 0,
+        marginRight: 0, 
+        marginBottom: 0,
+        width: 300,
+        height: 45,
+        borderColor: "transparent",
     }
 };
 

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, Text} from 'react-native';
+import { View, Text, Dimensions} from 'react-native';
 import { List, ListItem, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { HEADER_STYLE, HEADER_TITLE_STYLE } from '../styles/commons';
@@ -11,6 +11,28 @@ import iconFlags from '../assets/icons/flags';
 import text from '../assets/data/text';
 
 const BLUE_COLOR = '#03A9F4';
+const TAB_OPTIONS = {
+    animationEnabled: true,
+    tabBarPosition: 'bottom',
+    lazy: true,
+    initialLayout: this.initialLayout,
+    tabBarOptions: {
+        pressColor: BLUE_COLOR,
+        activeTintColor: BLUE_COLOR,
+        inactiveTintColor: '#707070',
+        labelStyle: {
+          fontSize: 15,
+          fontWeight: "bold",
+          marginBottom: 15
+        },
+        style: {
+            backgroundColor: '#D3D3D3',
+        },
+        indicatorStyle: {
+            backgroundColor: BLUE_COLOR,
+        }
+    }
+};
 
 class TranslationScreen extends Component {
 
@@ -26,6 +48,13 @@ class TranslationScreen extends Component {
         };
     };
 
+    constructor(props) {
+        super(props);
+        const { country: { languages } } = this.props.navigation.state.params;
+        const tabs = TabNavigator(this.createLangTabsForCountry(languages), TAB_OPTIONS);    
+        this.state= { tabs };
+    }
+
     /*
     * Produces the TabNavigator config object:
     * For example:
@@ -35,8 +64,7 @@ class TranslationScreen extends Component {
     *     "Italian": Object { "screen": TranslationTabScreen },
     * } 
     */
-    createLangTabsForCountry = () => {
-        const { country: { languages } } = this.props.navigation.state.params;
+    createLangTabsForCountry = (languages) => {
         return languages.map(l => ({ [l.name]: { screen: this.toTranslationTabScreen(l.name) }}))
         .reduce(( acc, cur ) => Object.assign(acc,cur), {});
     };
@@ -50,10 +78,14 @@ class TranslationScreen extends Component {
         // FIXME: Need to come from drawer key
         const textKey = 'greetings';
 
-        const homeCountryImgUri = Expo.Asset.fromModule(_.get(iconFlags, homeCountry.name)).uri;
-        const countryImgUri = Expo.Asset.fromModule(_.get(iconFlags, country.name)).uri;
+        const homeCountryImgUri = _.get(iconFlags, homeCountry.name);
+        const countryImgUri = _.get(iconFlags, country.name);
+
+        this.getTranslationText(homeCountryLang, textKey);
+        this.getTranslationText(countryLang, textKey);
 
         return (
+            //<Text>bye</Text>
             <TranslationTabScreen 
                 fromCountryName={homeCountry.name}
                 fromCountryLang={homeCountryLang}
@@ -75,27 +107,7 @@ class TranslationScreen extends Component {
     }
 
     render() {
-        const Tabs = TabNavigator(this.createLangTabsForCountry(), {
-            animationEnabled: true,
-            tabBarPosition: 'bottom',
-            lazy: true,
-            tabBarOptions: {
-                pressColor: BLUE_COLOR,
-                activeTintColor: BLUE_COLOR,
-                inactiveTintColor: '#707070',
-                labelStyle: {
-                  fontSize: 15,
-                  fontWeight: "bold",
-                  marginBottom: 15
-                },
-                style: {
-                    backgroundColor: '#D3D3D3',
-                },
-                indicatorStyle: {
-                    backgroundColor: BLUE_COLOR,
-                }
-            }
-        });
+        const Tabs = this.state.tabs;
         return(
             <View style={{ flex: 1 }}>
                 <Tabs />
@@ -103,6 +115,11 @@ class TranslationScreen extends Component {
         );
     }
 }
+
+const initialLayout = {
+    height: 0,
+    width: Dimensions.get('window').width,
+};
 
 const mapStateToProps = ({ homeCountry }) => {
     return { homeCountry };

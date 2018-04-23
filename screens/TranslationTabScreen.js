@@ -1,22 +1,25 @@
 import _ from 'lodash';
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import expo from 'expo';
-import { View, Text, FlatList } from 'react-native';
-import { Card, List, ListItem } from 'react-native-elements';
+import { View, Text, ListView } from 'react-native';
+import { Spinner, MyListItem, Card, CardSection } from '../components';
 import sounds from '../assets/sounds';
 
-class TranslationTabScreen extends Component {
+class TranslationTabScreen extends PureComponent {
     
     state = {
-        data: []
+        dataSource: null
     }
 
     componentWillMount() {
-        const data = this.createDataSource();
-        this.setState({ data });
+        this.createDataSource(this.props);
     }
 
-    createDataSource = () => {
+    componentWillReceiveProps(nextProps) {
+        this.createDataSource(nextProps);
+    }
+
+    createDataSource = async (props) => {
         const { 
             fromCountryName,
             fromCountryLang,
@@ -25,7 +28,7 @@ class TranslationTabScreen extends Component {
             toCountryLang,
             toTranslationText,
             textKey
-         } = this.props;
+         } = props;
         
         const filteredFrom = this.filterOutSubText(fromTranslationText);
         const filteredTo = this.filterOutSubText(toTranslationText);
@@ -33,7 +36,7 @@ class TranslationTabScreen extends Component {
             return { from: v1, to: v2 };
         });
 
-        return _.map(mergedTexts, (value, key) => {
+        const arrayPromisses = _.map(mergedTexts, async (value, key) => {
 
             const fromSoundSpecific = `${fromCountryLang}-${fromCountryName}.${textKey}.${key}`;
             const fromSoundDefault = `${fromCountryLang}.${textKey}.${key}`;
@@ -41,72 +44,73 @@ class TranslationTabScreen extends Component {
             const toSoundSpecific = `${toCountryLang}-${toCountryName}.${textKey}.${key}`;
             const toSoundDefault = `${toCountryLang}.${textKey}.${key}`;
 
-            const fromSound = new Expo.Audio.Sound();
-            fromSound.loadAsync(_.get(sounds, fromSoundSpecific, _.get(sounds, fromSoundDefault)));
-
-            const toSound = new Expo.Audio.Sound();
-            toSound.loadAsync(_.get(sounds, toSoundSpecific, _.get(sounds, toSoundDefault)));
+            const fromSound = _.get(sounds, fromSoundSpecific, _.get(sounds, fromSoundDefault));
+            const toSound = _.get(sounds, toSoundSpecific, _.get(sounds, toSoundDefault));
 
             return { 
                 fromText: value.from,
                 fromSubText: fromTranslationText[`_${key}`],
-                fromSound: fromSound,
+                fromSound,
                 toText: value.to,
                 toSubText: toTranslationText[`_${key}`],
-                toSound: toSound
+                toSound
             };
         });
+
+        const array = await Promise.all(arrayPromisses);
+        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+        this.setState({ dataSource: ds.cloneWithRows(array) })
     }    
     
     filterOutSubText = (text) => {
         return _.pickBy(text, (value, key) => !key.startsWith('_'));
     }
 
-    playSound = async (soundToPlay) => {
-        //await Expo.Audio.Sound.create(soundToPlay, { shouldPlay: true });
+    playSound = async (soundPath) => {
         try {
+            const soundToPlay = new Expo.Audio.Sound();
+            await soundToPlay.loadAsync(soundPath); 
             await soundToPlay.playAsync(); 
         } catch (error) {
             soundObject.unloadAsync();
         }
     }
 
-    renderRow = ({ item }) => {
-        const translationRow = item;
-        const iconProps = { name: 'hearing', color: '#646873' };
+    renderRow = (translationRow, sectionID) => {
         return(
-            <Card>
-                <ListItem 
-                    roundAvatar
+            <CardSection>
+                <MyListItem 
                     title={translationRow.fromText}
                     subtitle={translationRow.fromSubText}
-                    avatar={{uri: this.props.fromIconUri}}
-                    rightIcon={iconProps}
+                    avatarSrc={this.props.fromIconUri}
+                    rightIcon={{ name: 'hearing'}}
                     hideChevron={translationRow.fromSound == null}
                     onPress={translationRow.fromSound == null ? null : () => this.playSound(translationRow.fromSound)}
                 />
-                <ListItem 
-                    roundAvatar
+                <MyListItem 
                     title={translationRow.toText}
                     subtitle={translationRow.toSubText}
-                    avatar={{uri: this.props.toIconUri}}
-                    rightIcon={iconProps}
+                    avatarSrc={this.props.toIconUri}
+                    rightIcon={{ name: 'hearing'}}
                     hideChevron={translationRow.toSound == null}
                     onPress={translationRow.toSound == null ? null : () => this.playSound(translationRow.toSound)}
                 />
-            </Card>
+            </CardSection>
         );
     }
 
     render() {
+        if (!this.state.dataSource) {
+            return <Spinner size="large" />;
+        }
         return (
-            <List containerStyle={{ flex : 1 , marginTop: 0}}>
-                <FlatList
-                    data={this.state.data}
-                    renderItem={this.renderRow}   
-                    keyExtractor={ (item, index) => index}                 
-                />         
-            </List>               
+            <Card>
+                <ListView
+                    enableEmptySections
+                    renderRow={this.renderRow}
+                    dataSource={this.state.dataSource}
+                />    
+            </Card>  
         );
     }
 }

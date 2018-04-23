@@ -1,16 +1,16 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { FlatList, View, Text, AsyncStorage, TouchableOpacity, Platform } from 'react-native';
-import { List, ListItem, SearchBar, Avatar, ButtonGroup, Icon, Button } from 'react-native-elements';
+import { ListView, View, AsyncStorage, TouchableOpacity } from 'react-native';
+import {  Avatar, Icon, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import expo from 'expo';
 import { HEADER_STYLE, HEADER_TITLE_STYLE } from '../styles/commons';
-import { Spinner } from '../components';
+import { Spinner, MyListItem } from '../components';
 import * as actions from '../actions';
 import { changeHomeCountry } from '../actions';
 import iconFlags from '../assets/icons/flags';
 
-const DEFAULT_COUNTRY_UUID = '5870d25e-452e-4ba2-9d04-a8f37eca257f';
+const BRAZIL_COUNTRY_UUID = '5870d25e-452e-4ba2-9d04-a8f37eca257f';
 
 class CountriesScreen extends Component {
 
@@ -18,7 +18,7 @@ class CountriesScreen extends Component {
         const { navigate }  = props.navigation;
         const params = props.navigation.state.params || {};
         return {
-            headerTitle: 'Talk2Go',
+            headerTitle: 'TalkToGo',
             headerStyle: HEADER_STYLE,
             headerTitleStyle: HEADER_TITLE_STYLE,
             headerLeft: (
@@ -56,9 +56,11 @@ class CountriesScreen extends Component {
 
     componentWillMount() {
         this.props.fetchCountries();
+        this.createDataSource(this.props);
     }
 
     componentWillReceiveProps(nextProps) {
+        this.createDataSource(nextProps);
         this.setDefaultHomeCountry(nextProps);
     }
 
@@ -72,7 +74,7 @@ class CountriesScreen extends Component {
             }
 
             let homeCountryUuid = await AsyncStorage.getItem('homeCountryUuid');
-            const uuid = homeCountryUuid == null ? DEFAULT_COUNTRY_UUID : homeCountryUuid;
+            const uuid = homeCountryUuid == null ? BRAZIL_COUNTRY_UUID : homeCountryUuid;
             const defaultCountry = countries.find(c => c.uuid == uuid)
             this.props.changeHomeCountry(defaultCountry);
             this.setHeaderFlag(defaultCountry);
@@ -105,23 +107,24 @@ class CountriesScreen extends Component {
         AsyncStorage.setItem('homeCountryLangIndex', String(selectedIndex));
     }
 
-    renderRow = ({ item }) => {
-        const country = item;
+    createDataSource({ countries }) {
+        const ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 !== r2
+        });
+        this.dataSource = ds.cloneWithRows(countries);
+    } 
+
+    renderRow = (country, sectionID) => {
         const selected = country.uuid === this.props.homeCountry.uuid;
-        const countryImgUri = Expo.Asset.fromModule(_.get(iconFlags, country.name)).uri;
+        const countryImgSrc= _.get(iconFlags, country.name);        
         return (
-            <ListItem
-                roundAvatar
-                key={country.name}
+            <MyListItem 
                 title={country.name}
                 subtitle={country.native_name}
-                avatar={{uri: countryImgUri}}
+                avatarSrc={countryImgSrc}
                 containerStyle={[selected && { backgroundColor: '#03A9F4' }]}
-                component={TouchableOpacity}
-
-                // Press Props
                 onPress={() => this.onItemPress(country)}
-                onLongPress={() => this.onItemLongPress(country)}
+                //onLongPress={() => this.onItemLongPress(country)}
             />
         );
     }
@@ -137,37 +140,36 @@ class CountriesScreen extends Component {
 
 		return(
             <View style={{ flex: 1, backgroundColor: "white" }}>          
-                <SearchBar
+                {/* <SearchBar
                     ref={search => this.search = search}
-                    platform={Platform.OS}
+                    //platform={Platform.OS}
                     onChangeText={this.onSearchChangeText}
                     placeholder="Search"
                     onCancel={() => this.search.clear()}
-                />   
-                <ButtonGroup 
+                />    */}
+                {/* <ButtonGroup 
                     onPress={this.updateIndex}
                     selectedIndex={this.state.selectedIndex}
                     buttons={buttons}
                     containerStyle={styles.buttonGroupContainerStyle}
                     selectedButtonStyle={styles.buttonGroupSelectedButtonStyle}
                     selectedTextStyle={styles.buttonGroupSelectedTextStyle}
+                /> */}
+                <ListView
+                    enableEmptySections
+                    renderRow={this.renderRow}
+                    dataSource={this.dataSource}
                 />
-                <List containerStyle={{ flex:1, marginTop: 0}}>
-                    <FlatList
-                        data={countries}
-                        renderItem={this.renderRow}
-                        keyExtractor={ (item, index) => item.uuid}
-                    />
-                </List>            
             </View>
 		);
 	}
 }
 
 const mapStateToProps = ({ countries: { data, filterBy, isLoading, selectedIdx }, homeCountry }) => {
-    const filteredData = filterBy ? data.filter(c => c.name.toUpperCase().startsWith(filterBy)) : data;
+    //const filteredData = filterBy ? data.filter(c => c.name.toUpperCase().startsWith(filterBy)) : data;
     return { 
-        countries: _.sortBy(filteredData, ['name']), 
+        //countries: _.sortBy(filteredData, ['name']), 
+        countries: data,
         isLoading, 
         homeCountry
     };

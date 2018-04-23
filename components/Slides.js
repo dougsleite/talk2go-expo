@@ -88,4 +88,4 @@ const styles = {
     }
 };
 
-export default Slides;
+export { Slides };
